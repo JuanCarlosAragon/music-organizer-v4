@@ -88,26 +88,29 @@ public class MusicOrganizer
         int index = 0;
         // Record that we will be searching until a match is found.
         boolean searching = true;
+        if(files.size() != 0){
+            do{
+                String filename = files.get(index);
+                if(filename.contains(searchString)) {
+                    // A match. We can stop searching.
+                    searching = false;
+                }
+                else {
+                    // Move on.
+                    index++;
+                }
+            }while(searching && index < files.size());
     
-        while(searching && index < files.size()) {
-            String filename = files.get(index);
-            if(filename.contains(searchString)) {
-                // A match. We can stop searching.
-                searching = false;
+            if(searching) {
+                // We didn't find it.
+                return -1;
             }
             else {
-                // Move on.
-                index++;
+                // Return where it was found.
+                return index;
             }
         }
-        if(searching) {
-            // We didn't find it.
-            return -1;
-        }
-        else {
-            // Return where it was found.
-            return index;
-        }
+        return -1;
     }
 
     /**
